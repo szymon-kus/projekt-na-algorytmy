@@ -66,6 +66,35 @@ def upload_file():
         return jsonify({'message': 'File uploaded and encrypted successfully'})
     except Exception as e:
         return jsonify({'error': str(e)}), 500
+    
+@app.route('/download/<filename>', methods=['GET'])
+def download_file(filename):
+    try:
+        encrypted_file_path = os.path.join(upload_folder, filename)
+        
+        if not os.path.exists(encrypted_file_path):
+            return jsonify({'error': 'File not found'}), 404
+
+        with open(encrypted_file_path, 'rb') as encrypted_file:
+            encrypted_data = encrypted_file.read()
+
+        decrypted_data = cipher_suite.decrypt(encrypted_data)
+
+
+        decrypted_file_path = os.path.join(upload_folder, 'decrypted_' + filename)
+        with open(decrypted_file_path, 'wb') as decrypted_file:
+            decrypted_file.write(decrypted_data)
+
+
+
+        return send_file(decrypted_file_path, as_attachment=True)
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+    
+
+    finally:
+        if 'decrypted_file_path' in locals() and os.path.exists(decrypted_file_path):
+            os.remove(decrypted_file_path)    
 
 if __name__ == '__main__':
     app.run(debug=True)
