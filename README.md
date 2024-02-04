@@ -49,12 +49,12 @@ Logi serwera są rejestrowane w pliku 'app.log' za pomocą modułu logging w Pyt
 
 ## Instrukcja
 
-Uruchom Postman i utwórz nowe żądanie POST pod adresem http://localhost:5000/upload.
+Uruchom Postman i utwórz nowe żądanie POST pod adresem http://127.0.0.1:5000/upload.
 Wybierz opcję form-data.
 Dodaj klucz o nazwie 'file' i dołącz plik, który chcesz przesłać.
 Wyślij żądanie.
 
-Utwórz nowe żądanie GET pod adresem http://localhost:5000/download/<nazwa-pliku>.
+Utwórz nowe żądanie GET pod adresem http://127.0.0.1:5000/download/<nazwa-pliku>.
 Zastąp <nazwa-pliku> rzeczywistą nazwą pliku do pobrania.
 Wyślij żądanie, a plik zostanie pobrany w formie zdeszyfrowanej.
 
